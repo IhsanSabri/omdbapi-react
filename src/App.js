@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { routes } from './config/Router';
 import './App.css';
+import Layout from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        {routes.map((route) => (
+          // map fonksiyonu kullanırken her bir eleman için unique bir key verilmeli
+          <Route key={route.id} exact={route.exact} path={route.path}>
+            <Layout>{route.component}</Layout>
+          </Route>
+        ))}
+      </Switch>
+    </Router>
   );
 }
 
